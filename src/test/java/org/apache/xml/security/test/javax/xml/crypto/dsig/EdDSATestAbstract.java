@@ -18,6 +18,9 @@
  */
 package org.apache.xml.security.test.javax.xml.crypto.dsig;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
 
@@ -32,7 +35,7 @@ import org.w3c.dom.NodeList;
 /**
  * Abstract/super class for EdDSA signature tests
  */
-public abstract class EdDSATestAbstract {
+public abstract class EdDSATestAbstract extends XMLSignatureAbstract {
 
     public static final String EDDSA_KS =
             "src/test/resources/org/apache/xml/security/samples/input/eddsa.p12";
@@ -77,13 +80,19 @@ public abstract class EdDSATestAbstract {
         }
     }
 
-    public static boolean isEdDSASupported() {
-        return edDSASupported;
+    @Override
+    KeyStore getKeyStore() throws Exception {
+        KeyStore keyStore = KeyStore.getInstance(EDDSA_KS_TYPE);
+        keyStore.load(Files.newInputStream(Path.of(EDDSA_KS)), EDDSA_KS_PASSWORD.toCharArray());
+        return keyStore;
     }
 
-    public void updateIdReferences(DOMValidateContext vc, String elementName, String idAttributeName) {
-        Document doc = vc.getNode().getOwnerDocument();
-        NodeList nl = doc.getElementsByTagName(elementName);
-        vc.setIdAttributeNS((Element) nl.item(0), null, idAttributeName);
+    @Override
+    char[] getKeyPassword() {
+        return EDDSA_KS_PASSWORD.toCharArray();
+    }
+
+    public static boolean isEdDSASupported() {
+        return edDSASupported;
     }
 }

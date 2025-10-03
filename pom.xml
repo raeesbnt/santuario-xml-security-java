@@ -22,12 +22,12 @@
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
-        <version>30</version>
+        <version>35</version>
     </parent>
 
     <groupId>org.apache.santuario</groupId>
     <artifactId>xmlsec</artifactId>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.0.5-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <name>Apache XML Security for Java</name>
@@ -88,23 +88,23 @@
     </distributionManagement>
 
     <properties>
-        <activation-api.version>2.1.2</activation-api.version>
-        <bcprov.version>1.76</bcprov.version>
+        <activation-api.version>2.1.4</activation-api.version>
+        <bcprov.version>1.81</bcprov.version>
         <clirr.version>2.8</clirr.version>
-        <commons.codec.version>1.15</commons.codec.version>
-        <hamcrest.version>2.2</hamcrest.version>
-        <jaxb.runtime>4.0.3</jaxb.runtime>
-        <jetty.version>11.0.16</jetty.version>
+        <commons.codec.version>1.19.0</commons.codec.version>
+        <hamcrest.version>3.0</hamcrest.version>
+        <jaxb.runtime>4.0.5</jaxb.runtime>
+        <jetty.version>11.0.24</jetty.version>
         <jmh.version>1.37</jmh.version>
-        <junit.version>5.10.0</junit.version>
-        <slf4j.version>2.0.9</slf4j.version>
+        <junit.version>5.13.4</junit.version>
+        <slf4j.version>2.0.17</slf4j.version>
         <xalan.version>2.7.3</xalan.version>
-        <xmlunit.version>2.9.1</xmlunit.version>
-        <xml.bind.api.version>4.0.1</xml.bind.api.version>
-        <woodstox.core.version>6.5.1</woodstox.core.version>
+        <xmlunit.version>2.10.4</xmlunit.version>
+        <xml.bind.api.version>4.0.2</xml.bind.api.version>
+        <woodstox.core.version>7.1.1</woodstox.core.version>
 
         <maven.compiler.release>11</maven.compiler.release>
-        <project.build.outputTimestamp>2023-10-13T05:48:31Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2025-04-07T12:46:06Z</project.build.outputTimestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Allow Clirr severity to be overriden by the command-line option -DminSeverity=level -->
@@ -118,6 +118,7 @@
           --add-exports org.apache.santuario.xmlsec/org.apache.xml.security.test.dom.utils.jmh_generated=ALL-UNNAMED
           --add-exports org.apache.santuario.xmlsec/org.apache.xml.security.test.dom.xalan=ALL-UNNAMED
           --add-exports org.apache.santuario.xmlsec/org.apache.xml.security.test.stax.performance.jmh_generated=ALL-UNNAMED
+          --add-opens org.apache.santuario.xmlsec/org.apache.xml.security.test.dom.providers=java.base
         </maven.test.argLine>
         <skipUT>false</skipUT>
         <skipIT>true</skipIT>
@@ -278,7 +279,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.11.3</version>
                     <executions>
                         <execution>
                             <goals>
@@ -302,7 +303,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
                     <configuration>
                         <useReleaseProfile>false</useReleaseProfile>
                         <preparationGoals>clean install</preparationGoals>
@@ -314,7 +315,7 @@
                 <plugin>
                     <groupId>org.cyclonedx</groupId>
                     <artifactId>cyclonedx-maven-plugin</artifactId>
-                    <version>2.7.9</version>
+                    <version>2.9.1</version>
                     <executions>
                         <execution>
                             <id>make-bom</id>
@@ -334,7 +335,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.6.1</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
@@ -347,7 +348,7 @@
             <plugin>
                 <groupId>com.evolvedbinary.maven.jvnet</groupId>
                 <artifactId>jaxb30-maven-plugin</artifactId>
-                <version>0.15.0</version>
+                <version>0.16.0</version>
                 <executions>
                     <execution>
                         <id>generate-jaxb-sources</id>
@@ -362,20 +363,22 @@
                                 <schemaInclude>bindings/schemas/exc-c14n.xsd</schemaInclude>
                                 <schemaInclude>bindings/schemas/xmldsig-core-schema.xsd</schemaInclude>
                                 <schemaInclude>bindings/schemas/xmldsig11-schema.xsd</schemaInclude>
+                                <schemaInclude>bindings/schemas/dsig-more_2001_04.xsd</schemaInclude>
+                                <schemaInclude>bindings/schemas/dsig-more_2007_05.xsd</schemaInclude>
+                                <schemaInclude>bindings/schemas/dsig-more_2021_04.xsd</schemaInclude>
                                 <schemaInclude>bindings/schemas/xenc-schema.xsd</schemaInclude>
                                 <schemaInclude>bindings/schemas/xenc-schema-11.xsd</schemaInclude>
-                                <schemaInclude>bindings/schemas/rsa-pss.xsd</schemaInclude>
                             </schemaIncludes>
                             <bindingDirectory>${basedir}/src/main/resources/bindings/</bindingDirectory>
                             <bindingIncludes>
                                 <bindingInclude>c14n.xjb</bindingInclude>
                                 <bindingInclude>dsig.xjb</bindingInclude>
                                 <bindingInclude>dsig11.xjb</bindingInclude>
+                                <bindingInclude>dsig-more.xjb</bindingInclude>
                                 <bindingInclude>xenc.xjb</bindingInclude>
                                 <bindingInclude>xenc11.xjb</bindingInclude>
                                 <bindingInclude>security-config.xjb</bindingInclude>
                                 <bindingInclude>xop.xjb</bindingInclude>
-                                <bindingInclude>rsa-pss.xjb</bindingInclude>
                             </bindingIncludes>
                             <catalog>${basedir}/src/main/resources/bindings/bindings.cat</catalog>
                             <forceRegenerate>false</forceRegenerate>
@@ -415,11 +418,28 @@
                             <regex>true</regex>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>types-workaround-xmldsig</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.build.directory}/generated-sources/xjc/org/apache/xml/security/binding/xmldsig/PGPDataType.java</file>
+                            <replacements>
+                                <replacement>
+                                    <token>line (.+) of file:.+src/main/resources/(.+)</token>
+                                    <value>line $1 of file:src/main/resources/$2</value>
+                                </replacement>
+                            </replacements>
+                            <regex>true</regex>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.14.0</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
@@ -436,7 +456,7 @@
                         <path>
                             <groupId>com.google.errorprone</groupId>
                             <artifactId>error_prone_core</artifactId>
-                            <version>2.23.0</version>
+                            <version>2.41.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -444,7 +464,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>5.1.8</version>
+                <version>5.1.9</version>
                 <extensions>true</extensions>
                 <configuration>
                     <niceManifest>true</niceManifest>
@@ -474,7 +494,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>0.8.13</version>
                 <configuration>
                     <outputDirectory>${project.build.directory}</outputDirectory>
                     <includes>
@@ -504,7 +524,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.5.4</version>
                 <configuration>
                     <reportFormat>brief</reportFormat>
                     <includes>
@@ -534,7 +554,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.5.4</version>
                 <configuration>
                     <argLine>${maven.test.argLine}</argLine>
                     <skipExec>${skipIT}</skipExec>
@@ -614,20 +634,10 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.11.3</version>
                  <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
                     <execution>
                         <goals>
                             <goal>jar</goal>
@@ -656,25 +666,6 @@
     </reporting>
 
     <profiles>
-        <profile>
-            <id>release</id>
-            <activation>
-                <property>
-                    <name>release</name>
-                    <value />
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>fastinstall</id>
             <properties>

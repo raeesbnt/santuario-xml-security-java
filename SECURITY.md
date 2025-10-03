@@ -6,6 +6,7 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 4.0.x   | :white_check_mark: |
 | 3.0.x   | :white_check_mark: |
 | 2.3.x   | :white_check_mark: |
 | 2.2.x   | :white_check_mark: |
@@ -13,10 +14,7 @@
 
 ### Apache XML Security for C++
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 2.0.x   | :white_check_mark: |
-| < 2.0.x | :x:                |
+This project is retired.
 
 ## Reporting a Vulnerability
 
